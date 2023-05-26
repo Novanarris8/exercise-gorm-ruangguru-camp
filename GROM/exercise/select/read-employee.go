@@ -7,9 +7,14 @@ import (
 	"gorm.io/gorm"
 )
 
-type Departement struct {
-	id               uint
-	nama_departement string
+type Employee struct {
+	ID             uint
+	Name           string
+	Address        string
+	Age            uint8
+	Birthday       string
+	level          string
+	id_departement int
 }
 
 func main() {
@@ -18,21 +23,8 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	jumlah := [5]Departement{{id: 1, nama_departement: "departement1"},
-		{id: 2, nama_departement: "departement2"},
-		{id: 3, nama_departement: "departement3"},
-		{id: 4, nama_departement: "departement4"},
-		{id: 5, nama_departement: "departement5"}}
-	hasil := db.Create(&jumlah)
+	var employee Employee
+	db.First(&employee, 1)
+	fmt.Println(employee)
 
-	fmt.Println("Rows: ", hasil.RowsAffected)
-	for _, Departement := range jumlah {
-		fmt.Println(Departement.id, Departement.nama_departement)
-	}
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("Insert Success")
 }
